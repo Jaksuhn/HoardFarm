@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Dalamud.Game.Chat;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
@@ -55,7 +56,7 @@ public class HoardFarmService : IDisposable
     public int SessionRuns;
     public int SessionTime;
 
-    private ushort? currentTerritoryType;
+    private uint? currentTerritoryType;
 
     private DateTime? timingStart;
 
@@ -427,7 +428,7 @@ public class HoardFarmService : IDisposable
         }
     }
 
-    private void OnMapChange(ushort territoryType)
+    private void OnMapChange(uint territoryType)
     {
         if (territoryType is HoHMapId11 or HoHMapId21)
         {
@@ -437,17 +438,16 @@ public class HoardFarmService : IDisposable
         }
     }
 
-    private void OnChatMessage(
-        XivChatType type, int timestamp, ref SeString sender, ref SeString message, ref bool isHandled)
+    private void OnChatMessage(IHandleableChatMessage message)
     {
-        if (senseHoardMessage.Equals(message.TextValue))
+        if (senseHoardMessage.Equals(message.Message.TextValue))
         {
             intuitionUsed = true;
             hoardAvailable = true;
             HoardModeStatus = Strings.HoardFarm_Status_HoardFound;
         }
 
-        if (noHoardMessage.Equals(message.TextValue))
+        if (noHoardMessage.Equals(message.Message.TextValue))
         {
             intuitionUsed = true;
             hoardAvailable = false;
@@ -455,7 +455,7 @@ public class HoardFarmService : IDisposable
             LeaveDuty(Strings.HoardFarm_Status_NoHoard);
         }
 
-        if (hoardFoundMessage.Equals(message.TextValue))
+        if (hoardFoundMessage.Equals(message.Message.TextValue))
         {
             hoardFound = true;
             movementEnd = DateTime.Now;

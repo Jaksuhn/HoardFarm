@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using ECommons.Automation;
 using ECommons.GameHelpers;
+using ECommons.Throttlers;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using HoardFarm.Tasks.Base;
 
@@ -29,7 +30,7 @@ public class EnterHeavenOnHigh : IBaseTaskGroup
         }
 
         result.Add(SelectSave);
-        result.Add(new SelectYesnoTask(ConfirmPartyKoMessageId));
+        result.Add(ConfirmPartyKo);
         result.Add(ConfirmDuty);
         result.Add(WaitTillDutyReady);
         return result;
@@ -57,6 +58,21 @@ public class EnterHeavenOnHigh : IBaseTaskGroup
         return false;
     }
     
+    private static unsafe bool? ConfirmPartyKo()
+    {
+        if (TryGetAddonByName<AtkUnitBase>("ContentsFinderConfirm", out var confirm) && confirm->IsVisible)
+            return true;
+
+        var addon = FindSelectYesNo(ConfirmPartyKoMessageId);
+        if (addon != null && IsAddonReady(addon) && EzThrottler.Throttle("SelectYesnoTask" + ConfirmPartyKoMessageId))
+        {
+            Callback.Fire(addon, true, 0);
+            return true;
+        }
+
+        return false;
+    }
+
     private static unsafe bool? ConfirmDuty()
     {
         if (TryGetAddonByName<AtkUnitBase>("ContentsFinderConfirm", out var menu) && IsAddonReady(menu))

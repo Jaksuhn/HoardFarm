@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -95,7 +95,7 @@ public static class Utils
                 if (TryGetAddonByName<AtkUnitBase>("SelectYesno", out var addon) && IsAddonReady(addon))
                 {
                     var textNode = addon->UldManager.NodeList[15]->GetAsAtkTextNode();
-                    var text = MemoryHelper.ReadSeString(&textNode->NodeText).GetText().Replace(" ", "");
+                    var text = textNode->NodeText.GetText().Replace(" ", "");
                     if (text.EqualsAny(s) || text.ContainsAny(s)) return addon;
                     {
                         return addon;

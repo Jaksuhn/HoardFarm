@@ -1,12 +1,12 @@
-﻿namespace HoardFarm.Model;
+namespace HoardFarm.Model;
 
 public class CollectedData
 {
     public uint Version => 1;
-    public string Sender { get; set; }
+    public required string Sender { get; set; }
     public double Runtime { get; set; }
     public bool HoardFound { get; set; }
-    public ushort TerritoryTyp { get; set; }
+    public uint TerritoryTyp { get; set; }
     public bool? HoardCollected { get; set; }
     public double? MoveTime { get; set; }
     public bool SafetyMode { get; set; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using ECommons.EzHookManager;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
@@ -7,9 +7,8 @@ namespace HoardFarm.Service;
 
 public unsafe class AchievementService
 {
-    public delegate void ReceiveAchievementProgressDelegate(Achievement* achievement, uint id, uint current, uint max);
     [EzHook("C7 81 ?? ?? ?? ?? ?? ?? ?? ?? 89 91 ?? ?? ?? ?? 44 89 81")]
-    public EzHook<ReceiveAchievementProgressDelegate> ReceiveAchievementProgressHook = null!;
+    public EzHook<Achievement.Delegates.ReceiveAchievementProgress> ReceiveAchievementProgressHook = null!;
 
     public int Progress;
     
