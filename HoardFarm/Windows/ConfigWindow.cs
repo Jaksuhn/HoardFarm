@@ -126,6 +126,19 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
             }
             ImGui.Unindent();
         }
+
+        if (ImGui.Checkbox(Strings.ConfigWindow_StopOnNearbyPlayers, ref Config.StopOnNearbyPlayers))
+        {
+            Config.Save();
+        }
+        ImGui.SameLine();
+        ImGui.PushFont(UiBuilder.IconFont);
+        ImGui.Text(FontAwesomeIcon.QuestionCircle.ToIconString());
+        ImGui.PopFont();
+        if (ImGui.IsItemHovered())
+        {
+            ImGui.SetTooltip(Strings.ConfigWindow_StopOnNearbyPlayers_Help);
+        }
     }
     
     private List<KeyValuePair<String, String>> GetLanguages()

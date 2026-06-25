@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
+using ECommons.DalamudServices;
 using HoardFarm.Data;
 using HoardFarm.IPC;
 using HoardFarm.Model;
@@ -16,8 +17,7 @@ public class MainWindow : Window
     private const int TargetProgress = 30000;
     private readonly Configuration conf = Config;
 
-    public MainWindow()
-        : base(string.Format(Strings.MainWindow_Title, P.GetType().Assembly.GetName().Version) + "###HoardFarm")
+    public MainWindow() : base(string.Format(Strings.MainWindow_Title, Svc.PluginInterface.Manifest.AssemblyVersion) + "###HoardFarm")
     {
         SizeConstraints = new WindowSizeConstraints
         {
@@ -224,6 +224,8 @@ public class MainWindow : Window
             ImGui.TextColored(new Vector4(1, 0, 0, 1), Strings.MainWindow_UnableToRun + "\n");
             ImGui.Text(HoardService.HoardModeError);
         }
+
+        ImGui.Text($"Players Nearby: {Utils.Utils.PlayersNearby()}");
     }
 
     private void DrawRetainerSettings()
@@ -246,8 +248,7 @@ public class MainWindow : Window
 
         ImGui.SameLine();
         ImGui.SetNextItemWidth(200);
-        if (ImGui.Combo("##retainerMode", ref Config.RetainerMode,
-                        [Strings.MainWindow_DoRetainers_AnyDone, Strings.MainWindow_DoRetainers_AllDone], 2))
+        if (ImGui.Combo("##retainerMode", ref Config.RetainerMode, [Strings.MainWindow_DoRetainers_AnyDone, Strings.MainWindow_DoRetainers_AllDone], 2))
             Config.Save();
     }
 

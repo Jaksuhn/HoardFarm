@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Dalamud.Game.ClientState.Objects.SubKinds;
+using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Memory;
 using Dalamud.Utility;
@@ -117,6 +119,11 @@ public static class Utils
         if (ObjectTable.TryGetFirst(e => e.BaseId == KyuseiDataId, out var npc))
             return npc.Position.Distance(Player.Position) < 7f;
         return false;
+    }
+
+    public static bool PlayersNearby()
+    {
+        return ObjectTable.OfType<IPlayerCharacter>().Any(o => o.EntityId != Svc.PlayerState.EntityId);
     }
 
     public static unsafe bool CanUsePomander(Pomander pomander)

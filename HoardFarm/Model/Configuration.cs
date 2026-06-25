@@ -17,6 +17,7 @@ public class Configuration : IPluginConfiguration
     public int OverallTime;
     public bool ShowOverlay = true;
     public bool ParanoidMode;
+    public bool StopOnNearbyPlayers;
     public int MinWaitTime = 3;
     public int MaxWaitTime = 6;
     

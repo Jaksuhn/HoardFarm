@@ -11,6 +11,7 @@ using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Plugin.Services;
 using Dalamud.Utility;
+using ECommons.Automation;
 using ECommons.DalamudServices;
 using ECommons.GameHelpers;
 using ECommons.Throttlers;
@@ -59,6 +60,9 @@ public class HoardFarmService : IDisposable
     private uint? currentTerritoryType;
 
     private DateTime? timingStart;
+    private int nearbyPlayerEntries;
+
+    private const int NearbyPlayerRequiredEntries = 3;
 
     public HoardFarmService()
     {
@@ -106,6 +110,7 @@ public class HoardFarmService : IDisposable
     private void EnableFarm()
     {
         Reset();
+        nearbyPlayerEntries = 0;
         SessionTime = 0;
         SessionRuns = 0;
         SessionFoundHoards = 0;
@@ -236,6 +241,25 @@ public class HoardFarmService : IDisposable
                 {
                     // Do retainers first
                     return;
+                }
+
+                if (Config.StopOnNearbyPlayers)
+                {
+                    if (PlayersNearby())
+                    {
+                        nearbyPlayerEntries++;
+                        if (nearbyPlayerEntries >= NearbyPlayerRequiredEntries)
+                        {
+                            HoardModeStatus = Strings.HoardFarm_Status_PlayersNearby;
+                            HoardMode = false;
+                            Svc.Commands.ProcessCommand("/li inn");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        nearbyPlayerEntries = 0;
+                    }
                 }
 
                 GatherData();

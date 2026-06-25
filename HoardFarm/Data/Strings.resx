@@ -43,6 +43,12 @@
         <value>Slow mode will wait some seconds before requeue again.
 Not really necessary, but makes some people feel better.</value>
     </data>
+    <data name="ConfigWindow_StopOnNearbyPlayers" xml:space="preserve">
+        <value>Stop when players nearby</value>
+    </data>
+    <data name="ConfigWindow_StopOnNearbyPlayers_Help" xml:space="preserve">
+        <value>Stops hoard farming after entering HoH 3 times in a row while other players were nearby at queue time. Resets if a queue attempt has no players nearby.</value>
+    </data>
     <data name="DeepDungeonMenuOverlay_OpenHoardfarm" xml:space="preserve">
         <value>Open Hoardfarm</value>
     </data>
@@ -233,6 +239,9 @@ and one Concealment.</value>
     </data>
     <data name="HoardFarm_Status_Leaving" xml:space="preserve">
         <value>Leaving</value>
+    </data>
+    <data name="HoardFarm_Status_PlayersNearby" xml:space="preserve">
+        <value>Other players nearby</value>
     </data>
     <data name="ConfigWindow_WaitBetween" xml:space="preserve">
         <value>Wait between:</value>
