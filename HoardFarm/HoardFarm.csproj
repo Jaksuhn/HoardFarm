@@ -1,37 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Dalamud.NET.Sdk/15.0.0">
     <PropertyGroup>
-        <Authors>Jukkales</Authors>
         <Version>0.0.0.0</Version>
-        <Description>HoardFarm Dalamud Plugin</Description>
-        <PackageProjectUrl>https://github.com/Jukkales/HoardFarm</PackageProjectUrl>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <TargetFramework>net10.0-windows7.0</TargetFramework>
-        <Platforms>x64</Platforms>
-        <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-        <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
-        <DalamudDevPlugins>$(appdata)\XIVLauncher\devPlugins\HoardFarm\</DalamudDevPlugins>
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))'">
-        <DalamudLibPath>$(DALAMUD_HOME)/</DalamudLibPath>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-        <DefineConstants>TRACE</DefineConstants>
-        <!--OutputPath>$(DalamudDevPlugins)</OutputPath-->
+        <LangVersion>preview</LangVersion>
+        <Author>Jukkales</Author>
+        <Name>HoardFarm</Name>
+        <InternalName>HoardFarm</InternalName>
+        <Punchline>Become an accursed Hoarder!</Punchline>
+        <Description>Plugin to help farming DeepDungeon Hoards (...for you)</Description>
+        <RepoUrl>https://github.com/Jukkales/HoardFarm</RepoUrl>
+        <IconUrl>https://github.com/Jukkales/HoardFarm/raw/main/icon.png</IconUrl>
+        <Tags>hoard;farm;help;achievement;hoarder;accursed</Tags>
     </PropertyGroup>
 
     <ItemGroup>
